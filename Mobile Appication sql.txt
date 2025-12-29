@@ -1,0 +1,41 @@
+--- Creating the login table --
+CREATE TABLE Login (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    mail VARCHAR(255) NOT NULL,
+    username VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL
+);
+
+-- Create the Categories Table ---
+CREATE TABLE Categories (
+    id  INT IDENTITY(1,1) NOT NULL,
+    Name NVARCHAR(100) NOT NULL,
+    CONSTRAINT PK_Categories PRIMARY KEY CLUSTERED (id ASC)
+);
+
+-- Create the Places Table ---
+CREATE TABLE [Places] (
+    id          INT IDENTITY(1,1) NOT NULL,
+    Title       NVARCHAR(200) NOT NULL,
+    Description NVARCHAR(MAX) NULL,
+    Latitude    FLOAT NOT NULL,
+    Longitude   FLOAT NOT NULL,
+    ImageUrl    NVARCHAR(MAX) NULL,
+    Status      NVARCHAR(50) DEFAULT 'Active',
+    CategoryId  INT NOT NULL,
+    CONSTRAINT PK_Places PRIMARY KEY CLUSTERED (id ASC),
+    CONSTRAINT FK_Places_Categories_CategoryId FOREIGN KEY ([CategoryId]) 
+        REFERENCES Categories (id) ON DELETE CASCADE
+);
+
+--   Insert Initial Categories ---
+INSERT INTO Categories (Name) VALUES ('Beach');
+INSERT INTO Categories (Name) VALUES ('Museum');
+INSERT INTO Categories (Name) VALUES ('Park');
+INSERT INTO Categories (Name) VALUES ('Mountain');
+
+-- Insert admin info  into login ---
+INSERT INTO Login (mail, username, role, password) VALUES
+('admin1@Gmail.com', 'admin1', 'admin', '123456'),
+('admin2@Gmail.com', 'admin2', 'admin', '12345678');
