@@ -1,0 +1,106 @@
+﻿/* NAVBAR styling (shared across pages) */
+.navbar {
+    transition: background 0.3s, box-shadow 0.3s;
+    z-index: 1030; /* above page content */
+}
+
+.navbar .navbar-brand {
+    color: #e1fd0d;
+    font-weight: 700;
+}
+
+.navbar .nav-link {
+    color: rgba(0,0,0,0.7);
+    transition: color 0.15s ease;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: #0d6efd;
+}
+
+.navbar-scrolled {
+    background-color: #ffffff !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+:root { --navbar-height: 56px; }
+body.fixed-nav-offset {
+    padding-top: var(--navbar-height);
+}
+
+.navbar-toggler { border: none; }
+
+ 
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+}
+ 
+.card {
+    border-radius: 14px;
+    animation: fadeIn 0.6s ease-in-out;
+}
+ 
+.form-control:focus {
+    box-shadow: none;
+    border-color: #0d6efd;
+}
+
+ 
+.btn-primary {
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: 500;
+}
+
+    .btn-primary:hover {
+        background-color: #0b5ed7;
+    }
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.nature_card {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border-radius: 8px;  
+    overflow: hidden;  
+    background: #fff;
+    display: inline-block;
+    max-width: 340px;
+}
+
+.nature_card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.16);
+}
+
+.nature_card img {
+    display: block;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.nature_card:hover img {
+    transform: scale(1.04);
+}
+
+.nature_container,
+.nature_card .container {
+    padding: 12px 16px;
+}
+

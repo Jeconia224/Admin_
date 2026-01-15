@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>National Heritage - Treasure Hunt</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+<link rel="stylesheet" href="./assets/css/StyleSheet1.css">
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: #222;
+        }
+
+        .navbar-brand {
+            color: #0d6efd;
+            font-weight: 700;
+        }
+
+        /* Map Styling */
+        #heritageMap {
+            height: 450px;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 1;
+        }
+
+        .national_page_title {
+            font-size: 22px;
+            color: #2E8B57;
+            margin-bottom: 0.5rem;
+        }
+
+        .lead-desc {
+            font-size: 15px;
+            line-height: 1.55;
+            color: #444;
+        }
+
+        .card1 {
+            max-height: 16rem;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .site_description {
+            margin: 2rem 0;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Floating Directions Panel */
+        .trail-panel {
+            position: fixed;
+            right: 1.5rem;
+            bottom: 1.5rem;
+            z-index: 1050;
+            width: 320px;
+            display: none;
+        }
+
+        /* Pulsing animation for the Hunter */
+        .player-pulse {
+            border: 2px solid #fff;
+            border-radius: 50%;
+            background: #0d6efd;
+            box-shadow: 0 0 0 rgba(13, 110, 253, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(13, 110, 253, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(13, 110, 253, 0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="Index.html">MauritiusMap 🇲🇺</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="Index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="History.html">History</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="NationalHeritage.html">National Heritage</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <h2 class="fw-bold mb-3">Explore Heritage Trails</h2>
+
+        <div class="mb-5">
+            <div id="heritageMap"></div>
+            <p class="text-muted small mt-2">🦜 Blue dot: Your Position | 🏛️ Icons: Heritage Sites</p>
+        </div>
+
+        <div id="heritageList">
+            <div class="site_description">
+                <p class="national_page_title"><b>La Citadelle Port Louis (Fort Adelaïde)</b></p>
+                <img class="card1 mb-3" src="https://mauritiusattractions.com/content/images/guide/i-434/la-citadelle-port-louis.jpg" alt="La Citadelle">
+                <p class="lead-desc">Historical fortress overlooking the harbor, built in 1832.</p>
+                <button class="btn btn-primary btn-sm" onclick="addToTrail('La Citadelle, Port Louis')">🚩 Add to Trail</button>
+            </div>
+
+            <div class="site_description">
+                <p class="national_page_title"><b>Château de Labourdonnais</b></p>
+                <img class="card1 mb-3" src="https://mauritiusattractions.com/content/images/guide/i-434/chateau-de-labourdonnais.jpg" alt="Chateau">
+                <p class="lead-desc">A restored 19th-century sugar estate and colonial mansion.</p>
+                <button class="btn btn-primary btn-sm" onclick="addToTrail('Château de Labourdonnais, Mapou')">🚩 Add to Trail</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="trail-panel" id="trailPanel">
+        <div class="card shadow border-primary">
+            <div class="card-header bg-primary text-white d-flex justify-content-between">
+                <span class="small fw-bold">Navigating to Treasure...</span>
+                <button type="button" class="btn-close btn-close-white" onclick="hideTrailPanel()"></button>
+            </div>
+            <div class="card-body p-2">
+                <div id="trailDetails" class="small mb-2">Calculating...</div>
+                <div id="instructions" style="max-height: 150px; overflow-y: auto;" class="small text-muted border-top pt-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+
+    <script>
+        let map, userMarker, routeControl;
+        let userLatLng = null;
+        let allPlaces = [];
+const res = await fetch('./api/get_places.php');
+        const places = await res.json();
+
+        // 1. Initialize Map
+        function initMap() {
+            
+            map = L.map('heritageMap').setView([-20.3484, 57.5522], 10);
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap &copy; CARTO'
+            }).addTo(map);
+
+            loadHeritageSites();
+            startTracking();
+
+              places.forEach(p => {
+        // Markers will now be drawn using data from MariaDB
+        L.marker([p.latitude, p.longitude]).addTo(map)
+            .bindPopup(`<b>${p.title}</b><br>${p.description}`);
+    });
+        }
+
+        // 2. Fetch all places from DB and mark them
+        async function loadHeritageSites() {
+            try {
+                const response = await fetch('/api/places');
+                allPlaces = await response.json();
+
+                const treasureIcon = L.icon({
+                    iconUrl: 'https://cdn-icons-png.flaticon.com/512/4230/4230569.png',
+                    iconSize: [35, 35],
+                    iconAnchor: [17, 35]
+                });
+
+                allPlaces.forEach(place => {
+                    if (place.latitude && place.longitude) {
+                        L.marker([place.latitude, place.longitude], { icon: treasureIcon })
+                            .addTo(map)
+                            .bindPopup(`<b>${place.title}</b><br><button class="btn btn-xs btn-primary mt-1" onclick="addToTrail('${place.title}')">Trail Here</button>`);
+                    }
+                });
+            } catch (err) {
+                console.error("Data error:", err);
+            }
+            async function loadPlacesFromDB() {
+            const res = await fetch('api/get_places.php');
+            allPlaces = await res.json();
+            
+            allPlaces.forEach(p => {
+                if (p.status === 'Active') {
+                    L.marker([p.latitude, p.longitude]).addTo(map)
+                    .bindPopup(`<b>${p.title}</b><br><button onclick="addToTrail('${p.title}')">Add to Trail</button>`);
+                }
+            });
+        
+            }
+        }
+
+       
+
+        let currentTargetLatLng = null; // Track the current destination
+        let treasureFound = false; // Prevent multiple alerts for the same site
+
+        // This updare the Trail Logic to set the target
+        function addToTrail(destinationName) {
+            if (!userLatLng) {
+                alert("Searching for your GPS signal... please wait.");
+                return;
+            }
+
+            const target = allPlaces.find(p =>
+                destinationName.toLowerCase().includes(p.title.toLowerCase()) ||
+                p.title.toLowerCase().includes(destinationName.toLowerCase())
+            );
+
+            if (!target) {
+                alert("Location coordinates not found in database.");
+                return;
+            }
+
+            // Set the global target for proximity checking
+            currentTargetLatLng = L.latLng(target.latitude, target.longitude);
+            treasureFound = false; // Reset for the new destination
+
+            document.getElementById('trailPanel').style.display = 'block';
+            document.getElementById('trailDetails').innerHTML = `<b>Target:</b> ${target.title}`;
+
+            if (routeControl) map.removeControl(routeControl);
+
+            routeControl = L.Routing.control({
+                waypoints: [userLatLng, currentTargetLatLng],
+                router: L.Routing.osrmv1({ serviceUrl: 'https://router.project-osrm.org/route/v1' }),
+                createMarker: () => null,
+                lineOptions: { styles: [{ color: '#0d6efd', weight: 5 }] },
+                addWaypoints: false,
+                fitSelectedRoutes: true,
+                show: false
+            }).addTo(map);
+        }
+
+        // Updated Tracking Logic to check distance
+        function startTracking() {
+            if (!navigator.geolocation) return;
+
+            navigator.geolocation.watchPosition(pos => {
+                userLatLng = L.latLng(pos.coords.latitude, pos.coords.longitude);
+
+                // Update User Marker
+                if (!userMarker) {
+                    userMarker = L.circleMarker(userLatLng, {
+                        radius: 8,
+                        className: 'player-pulse',
+                        fillColor: "#0d6efd",
+                        color: "white",
+                        weight: 2,
+                        fillOpacity: 1
+                    }).addTo(map);
+                } else {
+                    userMarker.setLatLng(userLatLng);
+                }
+
+                // --- PROXIMITY CHECK LOGIC ---
+                if (currentTargetLatLng && !treasureFound) {
+                    // Calculate distance in meters
+                    const distance = userLatLng.distanceTo(currentTargetLatLng);
+
+                    if (distance < 20) { // 20 meters threshold
+                        treasureFound = true;
+                        triggerWinCondition();
+                    }
+                }
+            }, err => console.warn(err), { enableHighAccuracy: true });
+        }
+
+        // Find the treasure
+        function triggerWinCondition() {
+            alert("🎉 TREASURE FOUND! \n\nYou have arrived at the heritage site. Check your 'Inventory' for a new badge!");
+
+            if (routeControl) {
+                map.removeControl(routeControl);
+                routeControl = null;
+            }
+            document.getElementById('trailPanel').style.display = 'none';
+        }        
+
+        function hideTrailPanel() {
+            document.getElementById('trailPanel').style.display = 'none';
+            if (routeControl) map.removeControl(routeControl);
+        }
+
+        window.onload = initMap;
+    </script>
+</body>
+</html>

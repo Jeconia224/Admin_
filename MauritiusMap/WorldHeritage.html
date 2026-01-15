@@ -1,0 +1,316 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore the UNESCO World Heritage Sites of Mauritius: Aapravasi Ghat and Le Morne Cultural Landscape. A journey through history, resistance, and freedom.">
+    <title>UNESCO World Heritage Sites of Mauritius</title>
+<link rel="stylesheet" href="./assets/css/StyleSheet1.css">    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            
+            --primary-blue: #005b96;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+            --bg-light: #f8f9fa;
+          
+            --stone-accent: #7f8c8d; 
+            --earth-accent: #a0522d; 
+            --font-main: 'Roboto', sans-serif;
+            --spacing-unit: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--dark-text);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+
+        .main-header {
+            background: linear-gradient(rgba(0, 30, 60, 0.8), rgba(0, 30, 60, 0.8)), url('https://placehold.co/1920x600/005b96/ffffff?text=Mauritius+Lagoon+Texture'); /* Replace with a subtle background texture if desired */
+            background-size: cover;
+            background-position: center;
+            color: var(--light-text);
+            padding: calc(var(--spacing-unit) * 4) 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-content h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: var(--spacing-unit);
+            color: #bdc3c7;
+        }
+
+        .intro-text {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+
+        /* ---  Main Content Layout --- */
+        main {
+            padding: calc(var(--spacing-unit) * 3) 0;
+        }
+
+        /* Section Card Design */
+        .site-section {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            overflow: hidden; /* Ensures children don't spill out of rounded corners */
+            margin-bottom: calc(var(--spacing-unit) * 3);
+            border-top: 5px solid transparent; /* Placeholder for theme color */
+        }
+
+        .stone-theme {
+            border-color: var(--stone-accent);
+        }
+
+        .earth-theme {
+            border-color: var(--earth-accent);
+        }
+
+        .section-header {
+            padding: var(--spacing-unit) calc(var(--spacing-unit) * 2);
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+            .section-header h2 {
+                font-size: 2rem;
+                color: var(--dark-text);
+            }
+
+        .inscription-date {
+            background-color: #eee;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #555;
+        }
+
+
+        .site-body {
+            display: flex;
+            flex-direction: column; 
+        }
+
+        .site-visual {
+            width: 100%;
+            height: auto;
+        }
+
+            .site-visual img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;  
+                display: block;
+            }
+
+            .site-visual figcaption {
+                padding: 0.5rem;
+                background: #f0f0f0;
+                font-size: 0.9rem;
+                color: #666;
+                text-align: center;
+                font-style: italic;
+            }
+
+        .site-details {
+            padding: calc(var(--spacing-unit) * 2);
+        }
+
+            .site-details h3 {
+                color: var(--primary-blue);
+                margin-bottom: var(--spacing-unit);
+                font-size: 1.5rem;
+            }
+
+            .site-details p {
+                margin-bottom: var(--spacing-unit);
+            }
+
+        .key-facts {
+            list-style: none;
+            background-color: #f9fcfd;
+            border-left: 4px solid var(--primary-blue);
+            padding: var(--spacing-unit);
+            margin-top: var(--spacing-unit);
+        }
+
+            .key-facts li {
+                margin-bottom: 0.5rem;
+            }
+
+
+        /* Footer Styling --- */
+        .main-footer {
+            background-color: var(--dark-text);
+            color: #7f8c8d;
+            text-align: center;
+            padding: calc(var(--spacing-unit) * 2);
+            margin-top: auto; /* Pushes footer to bottom if content is short */
+        }
+
+
+
+        @media (min-width: 768px) {
+            .site-body {
+                flex-direction: row; 
+                align-items: stretch;
+            }
+
+            .site-visual {
+                flex: 1; 
+                min-height: 400px; 
+            }
+
+            .site-details {
+                flex: 1; 
+                padding: calc(var(--spacing-unit) * 3); 
+            }
+
+            .reverse-layout {
+                flex-direction: row-reverse;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-white">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="#">MauritiusMap 🇲🇺</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-white">
+                <div class="container">
+                    <a class="navbar-brand fw-bold text-primary" href="#">MauritiusMap 🇲🇺</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item"><a class="nav-link" href="Index.html#home">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="History.html">History</a></li>
+                            <li class="nav-item"><a class="nav-link" href="NationalHeritage.html">National Heritage</a></li>
+                            <li class="nav-item"><a class="nav-link" href="WorldHeritage.html">World Heritage</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </nav>
+
+    <header class="main-header">
+        <div class="container header-content">
+            <h1>Mauritius</h1>
+            <p class="subtitle">UNESCO World Heritage Sites</p>
+            <p class="intro-text">
+                Mauritius holds a unique place in human history. Its two World Heritage properties are deeply intertwined with the global narratives of slavery, indenture, resistance, and the forging of modern multicultural societies.
+            </p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section id="aapravasi-ghat" class="site-section stone-theme">
+            <div class="section-header">
+                <h2>Aapravasi Ghat</h2>
+                <span class="inscription-date">Inscribed 2006</span>
+            </div>
+
+            <div class="site-body">
+                <figure class="site-visual">
+                    <img src="https://tse3.mm.bing.net/th/id/OIP.H2krB9per19_cuUyeveTyQHaFk?rs=1&pid=ImgDetMain&o=7&rm=3" alt="The stone steps at Aapravasi Ghat leading from the sea">
+                    <figcaption>The historic steps where immigrants first set foot on Mauritian soil.</figcaption>
+                </figure>
+
+                <div class="site-details">
+                    <h3>The "Great Experiment"</h3>
+                    <p>
+                        Located in the district of Port Louis, Aapravasi Ghat sits on the bay where the modern history of Mauritius began. Following the abolition of slavery in the British Empire in 1834, the British government selected Mauritius for the "Great Experiment."
+                    </p>
+                    <p>
+                        This site was an immigration depot intended to demonstrate that "free" labor could replace slave labor. Between 1849 and 1923, nearly half a million indentured laborers, primarily from India, passed through these gates to work on the island's sugar estates.
+                    </p>
+                    <p>
+                        Today, it stands as a testament to the indenture experience and the ancestors of the majority of the current Mauritian population.
+                    </p>
+
+                    <ul class="key-facts">
+                        <li><strong>Significance:</strong> The global launchpad for the indentured labor system that later spread across the world.</li>
+                        <li><strong>What remains:</strong> About 15% of the original depot, including the immigration shed, gatekeeper's hut, and the iconic 14 steps.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="le-morne" class="site-section earth-theme">
+            <div class="section-header">
+                <h2>Le Morne Cultural Landscape</h2>
+                <span class="inscription-date">Inscribed 2008</span>
+            </div>
+
+            <div class="site-body reverse-layout">
+                <figure class="site-visual">
+                    <img src="https://tse3.mm.bing.net/th/id/OIP.858UmU1Sly0SgMAh1PmHIwHaFj?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Le Morne Brabant mountain imposing over the turquoise lagoon">
+                    <figcaption>Le Morne Brabant, a rugged monolith jutting into the Indian Ocean.</figcaption>
+                </figure>
+
+                <div class="site-details">
+                    <h3>A Citadel of Resistance</h3>
+                    <p>
+                        Le Morne Brabant is a rugged mountain on the southwestern tip of Mauritius. During the 18th and early 19th centuries, this imposing monolith became a fortress for runaway enslaved people, known as "maroons."
+                    </p>
+                    <p>
+                        Its almost inaccessible cliffs and dense wooded slopes provided ideal shelter. Maroons established small settlements in caves and on the summit, living in freedom despite the harsh conditions. It became the physical embodiment of the fight against the inhumane system of slavery.
+                    </p>
+                    <p>
+                        It is celebrated today not just for its dramatic physical beauty, but as a universal symbol of resistance, freedom, and the enduring human spirit.
+                    </p>
+
+                    <ul class="key-facts">
+                        <li><strong>Significance:</strong> A powerful global symbol of the resistance to slavery (Maroonage).</li>
+                        <li><strong>Geography:</strong> A basaltic monolith rising 556 meters above sea level, surrounded by a lagoon.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+
+</body>
+</html>

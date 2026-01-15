@@ -1,0 +1,582 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Discover Mauritius</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<link rel="stylesheet" href="./assets/css/StyleSheet1.css">
+    <style>
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1542332213-31f87348057f?q=80&w=2070');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .map-container {
+            height: 500px;
+            width: 100%;
+            border-radius: 14px;
+            z-index: 1;
+        }
+
+        .navbar {
+            transition: background 0.3s;
+        }
+
+        .navbar-scrolled {
+            background-color: white !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body id="home">
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-white">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="#">MauritiusMap 🇲🇺</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="Index.html#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="History.html">History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="NationalHeritage.html">National Heritage</a></li>
+                    <li class="nav-item"><a class="nav-link" href="WorldHeritage.html">World Heritage</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-3 animation-fadeIn">Discover Mauritius</h1>
+            <p class="lead fs-4 mb-4">Explore the island's rich history, trails, and World Heritage sites.</p>
+            <a href="#map" class="btn btn-primary btn-lg">View Interactive Map</a>
+        </div>
+    </header>
+
+    <section id="history" class="py-5">
+        <div class="container py-4">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmauritiusattractions.com%2Fcontent%2Fimages%2Fmaps%2Fmauritius-historical-map.JPG&f=1&nofb=1&ipt=77e530ca7c59c8a9cddb029cfa79be1f1b92686bd3fba8e96dbcb9303a3f8801" class="img-fluid rounded-4 shadow-sm" alt="History">
+                </div>
+                <div class="col-lg-6 mt-4 mt-lg-0">
+                    <h2 class="fw-bold mb-3">A Brief History</h2>
+                    <p class="text-muted">
+                        Mauritius was uninhabited before its first recorded visit during the Middle Ages by Arab sailors.
+                        It was officially established as a Dutch colony in 1638, later becoming a French and then British colony.
+                    </p>
+                    <p class="text-muted">
+                        Today, the island is a melting pot of cultures, known for its incredible biodiversity, lagoons, and reefs, alongside a history deeply rooted in trade and sugarcane plantations.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="national" class="py-5 bg-light">
+        <div class="container">
+            <h3 class="fw-bold text-center mb-5">National Heritage Sites</h3>
+            <div class="row g-4" id="national-container">
+                <div class="col-12 text-center text-muted">
+                    <!--The nartural heritage card-->
+                    <div class="nature_card">
+                        <a href="NationalHeritage.html">
+                            <img src="https://mauritiusattractions.com/content/images/guide/i-434/la-citadelle-port-louis.jpg" alt="La Citadelle">
+                        </a>
+                        <link href="NationalHeritage.html" />
+                        <div class="container">
+                            <h4><b>La citadelle</b></h4>
+
+                        </div>
+                    </div>
+
+                    <div class="nature_card">
+                        <a href="NationalHeritage.html">
+                            <img src="https://mauritiusattractions.com/content/images/guide/i-434/chateau-de-labourdonnais.jpg" alt="Chateau de labourdonnais">
+                        </a>
+                        <link rel=" ">
+
+                        <div class="nature_container">
+                            <h4><b>Chateau de labourdonnais</b></h4>
+
+                        </div>
+                    </div>
+
+                    <div class="nature_card">
+                        <a href="NationalHeritage.html">
+                            <img src="https://mauritiusattractions.com/content/images/guide/i-434/sugar-museum.jpg" alt="L’Aventure du Sucre">
+                        </a>
+                        <link href="NationalHeritage.html" />
+                        <div class="container">
+                            <h4><b>L’Aventure du Sucre</b></h4>
+
+                        </div>
+                    </div>
+
+                    <div class="nature_card">
+                        <a href="NationalHeritage.html">
+                            <img src="https://mauritiusattractions.com/content/images/guide/i-434/bois-cheri-tea-museum.jpg" alt=" Bois Cheri Tea Museum & Factory">
+                        </a>
+                        <link href="NationalHeritage.html" />
+                        <div class="container">
+                            <h4><b> Bois Cheri Tea Museum & Factory</b></h4>
+
+                        </div>
+                    </div>
+
+                    <div class="nature_card">
+                        <a href="NationalHeritage.html">
+                            <img src="https://mauritiusattractions.com/content/images/guide/i-434/eureka-house.jpg" alt="Eureka House">
+                        </a>
+                        <link href="NationalHeritage.html" />
+                        <div class="container">
+                            <h4><b>Eureka House</b></h4>
+
+                        </div>
+                    </div>
+
+                    <div class="nature_card">
+                        <a href="NationalHeritage.html">
+                            <img src="https://mauritiusattractions.com/content/images/guide/i-434/blue-penny-museum.jpg" alt="Blue Penny Museum">
+                        </a>
+                        <link href="NationalHeritage.html" />
+                        <div class="container">
+                            <h4><b>Blue Penny Museum</b></h4>
+
+                        </div>
+                    </div>
+
+                    <div class="nature_card">
+                        <a href="NationalHeritage.html">
+                            <img src="" alt="Mahebourg Historical Naval Museum">
+                        </a>
+                        <link href="NationalHeritage.html" />
+                        <div class="container">
+                            <h4><b>Mahebourg Historical Naval Museume</b></h4>
+
+                        </div>
+                    </div>
+
+                    <div class="nature_card">
+                        <a href="NationalHeritage.html">
+                            <img src="https://mauritiusattractions.com/content/images/guide/i-434/national-history-museum.jpg" alt="La Citadelle">
+                        </a>
+                        <link href="NationalHeritage.html" />
+                        <div class="container">
+                            <h4><b>La citadelle</b></h4>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="world" class="py-5">
+        <div class="container">
+            <h3 class="fw-bold text-center mb-5">UNESCO World Heritage Sites</h3>
+            <div class="row g-4 justify-content-center" id="world-container">
+            </div>
+        </div>
+    </section>
+
+    <section id="map" class="position-relative vh-100 bg-light">
+        <div class="position-absolute top-0 start-0 m-3 p-3 bg-white shadow rounded-4" style="z-index: 1000; width: 300px; max-height: 80vh; overflow-y: auto;">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h5 class="fw-bold mb-0 text-primary">🏴‍☠️ Treasure Hunt</h5>
+                <button id="btnFollow" class="btn btn-sm btn-outline-secondary">
+                    <span id="followIcon">◎</span> Follow Me
+                </button>
+            </div>
+            <hr>
+
+            <div id="gameStatus">
+                <p class="small text-muted">Locating your position...</p>
+            </div>
+
+            <div id="navPanel" class="d-none mt-3">
+                <h6 class="fw-bold text-success">Current Mission:</h6>
+                <div id="missionTarget" class="fw-bold mb-2"></div>
+                <div id="routeInstructions" class="small border-top pt-2">
+                </div>
+                <button onclick="stopHunt()" class="btn btn-danger btn-sm w-100 mt-3">Cancel Mission</button>
+            </div>
+        </div>
+
+        <div id="leafletMap" class="h-100 w-100"></div>
+    </section>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+
+    <script>
+        // --- 1. CONFIGURATION & ASSETS ---
+        const TREASURE_ICON_URL = 'https://cdn-icons-png.flaticon.com/512/4230/4230569.png'; // Treasure Chest
+        const PLAYER_ICON_URL = 'https://cdn-icons-png.flaticon.com/512/9431/9431186.png'; // Pirate/Hunter
+
+        let map, playerMarker, routeControl;
+        let userLatLng = null;
+        let isFollowing = false;
+        let watchId = null;
+
+async function initMap() {
+    const mauritiusCenter = { lat: -20.3484, lng: 57.5522 };
+    
+    // Initialize the Map
+    const gMap = new google.maps.Map(document.getElementById("googleMap"), {
+        zoom: 10,
+        center: mauritiusCenter,
+        mapId: 'YOUR_MAP_ID' // google map api
+    });
+
+    const iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+    const icons = {
+        'Beach': iconBase + 'info-i.png',
+        'Museum': iconBase + 'library_maps.png',
+        'Park': iconBase + 'parks.png',
+        'World Heritage': iconBase + 'monument.png'
+    };
+
+    try {
+        const response = await fetch('./api/get_places.php');
+        const places = await response.json();
+
+        places.forEach(place => {
+            if (place.Latitude && place.Longitude) {
+                const category = place.category_name || 'Default';
+                const markerIcon = icons[category] || iconBase + 'placemark_circle.png';
+
+                const marker = new google.maps.Marker({
+                    position: { 
+                        lat: parseFloat(place.Latitude), 
+                        lng: parseFloat(place.Longitude) 
+                    },
+                    map: gMap,
+                    title: place.Title, 
+                    icon: {
+                        url: markerIcon,
+                        scaledSize: new google.maps.Size(35, 35)
+                    }
+                });
+
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `<div class="p-2"><h6>${place.Title}</h6><p class="small mb-0">${category}</p></div>`
+                });
+
+                marker.addListener("click", () => {
+                    infoWindow.open(gMap, marker);
+                });
+            }
+        });
+    } catch (error) {
+        console.error("Error loading markers:", error);
+    }
+}
+
+        function startTracking(icon) {
+            if (!navigator.geolocation) {
+                document.getElementById('gameStatus').innerHTML = '<span class="text-danger">GPS not supported by your browser.</span>';
+                return;
+            }
+
+            watchId = navigator.geolocation.watchPosition(
+                (pos) => {
+                    const { latitude, longitude } = pos.coords;
+                    userLatLng = L.latLng(latitude, longitude);
+
+                    // Update UI Status
+                    document.getElementById('gameStatus').innerHTML = '<span class="text-success">✅ GPS Active. Hunting mode on.</span>';
+
+                    // Create or Update Player Marker
+                    if (!playerMarker) {
+                        playerMarker = L.marker(userLatLng, { icon: icon, zIndexOffset: 1000 }).addTo(map);
+                        playerMarker.bindPopup("<b>You are here!</b>");
+                    } else {
+                        playerMarker.setLatLng(userLatLng);
+                    }
+
+                    // Follow Mode
+                    if (isFollowing) {
+                        map.panTo(userLatLng);
+                    }
+                },
+                (err) => {
+                    console.warn("GPS Error:", err);
+                    document.getElementById('gameStatus').innerHTML = '<span class="text-danger">⚠️ GPS Signal Lost. Check permissions.</span>';
+                },
+                { enableHighAccuracy: true, maximumAge: 10000, timeout: 5000 }
+            );
+        }
+
+        document.getElementById('btnFollow').addEventListener('click', function () {
+            isFollowing = !isFollowing;
+            this.classList.toggle('btn-primary');
+            this.classList.toggle('btn-outline-secondary');
+            this.innerHTML = isFollowing ? '<span id="followIcon">◉</span> Locked' : '<span id="followIcon">◎</span> Follow Me';
+
+            if (isFollowing && userLatLng) map.panTo(userLatLng);
+        });
+
+        window.startHunt = function (destLat, destLng, title) {
+            if (!userLatLng) {
+                alert(" Waiting for your GPS signal... Please ensure location is enabled.");
+                return;
+            }
+
+            // UI Updates
+            map.closePopup(); 
+            document.getElementById('navPanel').classList.remove('d-none');
+            document.getElementById('missionTarget').innerText = title;
+            document.getElementById('routeInstructions').innerHTML = '<i>Calculating route...</i>';
+
+            // Remove previous route if exists
+            if (routeControl) {
+                map.removeControl(routeControl);
+            }
+
+            routeControl = L.Routing.control({
+                waypoints: [
+                    userLatLng, 
+                    L.latLng(destLat, destLng) 
+                ],
+                router: L.Routing.osrmv1({
+                    serviceUrl: 'https://router.project-osrm.org/route/v1'
+                }),
+                lineOptions: {
+                    styles: [{ color: '#d63384', opacity: 0.8, weight: 6 }] 
+                },
+                createMarker: function () { return null; }, 
+                addWaypoints: false,
+                draggableWaypoints: false,
+                fitSelectedRoutes: true,
+                show: false 
+            }).addTo(map);
+
+            // Extract instructions for our custom panel
+            routeControl.on('routesfound', function (e) {
+                const routes = e.routes;
+                const summary = routes[0].summary;
+                const steps = routes[0].instructions;
+
+                // Format time and distance
+                const time = Math.round(summary.totalTime / 60);
+                const dist = (summary.totalDistance / 1000).toFixed(1);
+
+                let html = `<div class="alert alert-info py-1 mb-2">🏁 Distance: ${dist} km | ⏳ ${time} min</div>`;
+
+                html += '<ul class="list-group list-group-flush list-unstyled small">';
+                steps.slice(0, 3).forEach(step => {
+                    let icon = '';
+                    if (step.type.includes('Left')) icon = '⬅️';
+                    else if (step.type.includes('Right')) icon = '➡️';
+                    else icon = '⬆️';
+
+                    html += `<li class="mb-1">${icon} ${step.text}</li>`;
+                });
+                html += '</ul>';
+
+                document.getElementById('routeInstructions').innerHTML = html;
+            });
+        };
+
+        window.stopHunt = function () {
+            if (routeControl) {
+                map.removeControl(routeControl);
+                routeControl = null;
+            }
+            document.getElementById('navPanel').classList.add('d-none');
+        };
+
+        document.addEventListener("DOMContentLoaded", initMap);
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        let gMap; 
+        let userLocation = null;
+        let directionsService;
+        let directionsRenderer;
+        let userMarker = null;
+        const infoWindow = new google.maps.InfoWindow();
+
+        async function initMap() {
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer({
+                suppressMarkers: true,
+                polylineOptions: { strokeColor: "#0d6efd", strokeWeight: 5 }
+            });
+
+            const mauritiusCenter = { lat: -20.3484, lng: 57.5522 };
+
+            gMap = new google.maps.Map(document.getElementById("googleMap"), {
+                zoom: 15,
+                center: mauritiusCenter,
+                mapTypeControl: false,
+                fullscreenControl: true,
+                streetViewControl: false
+            });
+
+            directionsRenderer.setMap(gMap);
+
+            // Add GPS Control
+            addGPSControl(gMap);
+
+            loadContent();
+        }
+
+        async function loadContent() {
+            try {
+const response = await fetch('./api/get_places.php');
+                if (!response.ok) throw new Error('Failed to fetch data');
+                const places = await response.json();
+
+                const nationalContainer = document.getElementById('national-container');
+                const worldContainer = document.getElementById('world-container');
+
+                nationalContainer.innerHTML = '';
+                worldContainer.innerHTML = '';
+
+                places.forEach(place => {
+                    const catName = place.category ? place.category.name.toLowerCase() : '';
+
+                    const cardHtml = `
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="card h-100 border-0 shadow-sm">
+                                            <img src="${place.imageUrl || 'https://via.placeholder.com/400x200'}" class="card-img-top" alt="${place.title}">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <span class="badge bg-primary bg-opacity-10 text-primary">${place.category ? place.category.name : 'Place'}</span>
+                                                    ${place.status === 'Active' ? '<span class="badge bg-success small">Open</span>' : '<span class="badge bg-secondary small">Closed</span>'}
+                                                </div>
+                                                <h5 class="card-title fw-bold">${place.title}</h5>
+                                                <p class="card-text text-muted small">${place.description ? place.description.substring(0, 80) + '...' : 'No description available.'}</p>
+                                            </div>
+                                        </div>
+                                    </div>`;
+
+                    if (catName.includes('world heritage')) {
+                        worldContainer.innerHTML += cardHtml;
+                    } else if (catName.includes('national heritage')) {
+                        nationalContainer.innerHTML += cardHtml;
+                    }
+
+                    // 3. Add Google Marker
+                    if (place.latitude && place.longitude) {
+                        createHeritageMarker(place);
+                    }
+                });
+
+                if (nationalContainer.innerHTML === '') nationalContainer.innerHTML = '<p class="text-center">No National Heritage sites found.</p>';
+                if (worldContainer.innerHTML === '') worldContainer.innerHTML = '<p class="text-center">No World Heritage sites found.</p>';
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function createHeritageMarker(place) {
+            const isWorld = place.category?.name.toLowerCase().includes("world");
+            const markerColor = isWorld ? "#FFD700" : "#0d6efd";
+
+            const marker = new google.maps.Marker({
+                position: { lat: parseFloat(place.latitude), lng: parseFloat(place.longitude) },
+                map: gMap,
+                title: place.title,
+                icon: {
+                    path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                    fillColor: markerColor,
+                    fillOpacity: 1,
+                    strokeWeight: 2,
+                    strokeColor: "#FFFFFF",
+                    scale: 7
+                }
+            });
+
+            marker.addListener("click", () => {
+                const contentString = `
+                                <div class="p-2">
+                                    <h6 class="fw-bold mb-1">${place.title}</h6>
+                                    <button class="btn btn-primary btn-sm w-100" onclick="getDirectionsTo(${place.latitude}, ${place.longitude}, '${place.title}')">Directions</button>
+                                </div>`;
+                infoWindow.setContent(contentString);
+                infoWindow.open(gMap, marker);
+            });
+        }
+
+        function addGPSControl(mapInstance) {
+            const controlUI = document.createElement("button");
+            controlUI.className = "btn btn-white bg-white m-3 shadow fw-bold";
+            controlUI.innerHTML = "🦜 Locate Me";
+            mapInstance.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlUI);
+
+            controlUI.addEventListener("click", () => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
+                        if (userMarker) userMarker.setMap(null);
+                        userMarker = new google.maps.Marker({
+                            position: userLocation,
+                            map: mapInstance,
+                            icon: { path: google.maps.SymbolPath.CIRCLE, scale: 8, fillColor: "#4285F4", fillOpacity: 1, strokeColor: "white", strokeWeight: 2 }
+                        });
+                        mapInstance.panTo(userLocation);
+                    });
+                }
+            });
+        }
+
+        function getDirectionsTo(lat, lng, name) {
+            if (!userLocation) { alert("Please use 'Locate Me' first."); return; }
+            directionsService.route({
+                origin: userLocation,
+                destination: { lat: lat, lng: lng },
+                travelMode: google.maps.TravelMode.DRIVING
+            }, (result, status) => {
+                if (status == 'OK') {
+                    directionsRenderer.setDirections(result);
+                    document.getElementById('directionsPanel').classList.remove('d-none');
+                    document.getElementById('tripStats').innerHTML = `To: ${name}<br>${result.routes[0].legs[0].distance.text}`;
+                }
+            });
+        }
+
+        function clearRoute() {
+            directionsRenderer.setDirections({ routes: [] });
+            document.getElementById('directionsPanel').classList.add('d-none');
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function () {
+            const nav = document.querySelector('.navbar');
+            if (window.scrollY > 50) nav.classList.add('navbar-scrolled');
+            else nav.classList.remove('navbar-scrolled');
+        });
+    </script>
+
+</body>
+</html>

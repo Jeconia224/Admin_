@@ -1,0 +1,20 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Mauritius Heritage API",
+    "version": "1.0.0",
+    "description": "API for fetching heritage site locations for the Treasure Hunt mobile app."
+  },
+  "paths": {
+    "/api/get_places.php": {
+      "get": {
+        "summary": "List all sites",
+        "responses": {
+          "200": {
+            "description": "JSON array of locations"
+          }
+        }
+      }
+    }
+  }
+}

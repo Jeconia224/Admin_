@@ -1,0 +1,44 @@
+CREATE TABLE categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE places (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    Title VARCHAR(255) NOT NULL,
+    Description TEXT,
+    Latitude DECIMAL(10, 8),
+    Longitude DECIMAL(11, 8),
+    ImageUrl VARCHAR(500),
+    Status ENUM('Active', 'Inactive') DEFAULT 'Active',
+    Categoryid INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (Categoryid) REFERENCES categories(id)
+);
+
+CREATE TABLE logins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    mail VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('admin', 'user') DEFAULT 'admin',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+INSERT INTO categories (name) VALUES 
+('Beach'),
+('Museum'),
+('Park'),
+('National Heritage'),
+('World Heritage'),
+('Mountain');
+
+INSERT INTO logins (mail, password, role) VALUES 
+('admin@mauritius.com', 'admin123', 'admin');
+
+INSERT INTO places (Title, Description, Latitude, Longitude, Categoryid, Status) VALUES
+('Le Morne Brabant', 'UNESCO World Heritage Site', -20.4525, 57.3238, 5, 'Active'),
+('Aapravasi Ghat', 'Immigration depot and UNESCO site', -20.1589, 57.5012, 5, 'Active'),
+('SSR Botanical Garden', 'Famous botanical garden', -20.1947, 57.4733, 3, 'Active'),
+('Blue Penny Museum', 'Historical museum in Port Louis', -20.1609, 57.5015, 2, 'Active');
